@@ -1,3 +1,4 @@
+import QueryBuilder from "../../../builder/queryBuilder";
 import AppError from "../../errors/AppError";
 import { Lesson } from "../Lesson/lesson.model";
 import { IVocabularyPayload } from "./vocabulary.interface";
@@ -31,14 +32,28 @@ const updateVocabulary = async (
   });
   return result;
 };
-const getVocabularyByLesson = async (lessonNumber: number) => {
-  const findLesson = await Lesson.findOne({ lessonNumber }).lean();
-  if (!findLesson) {
-    throw new AppError(404, "Could Not Find Corresponding Lesson");
-  }
+const getVocabulary = async (query: Record<string, unknown>) => {
+  if (query && query.lessonNumber) {
+    const lessonNumber = query.lessonNumber;
 
-  const result = await Vocabulary.find({ lesson: findLesson._id });
-  return result;
+    const findLesson = await Lesson.findOne({ lessonNumber }).lean();
+    if (!findLesson) {
+      throw new AppError(404, "Could Not Find Corresponding Lesson");
+    }
+    const lesson = findLesson._id;
+
+    const newQuery = { lesson: lesson };
+    const vocabularyQuery = new QueryBuilder(
+      Vocabulary.find(),
+      newQuery
+    ).filter();
+
+    const result = await vocabularyQuery.modelQuery;
+    return result;
+  } else {
+    const result = await Vocabulary.find().lean();
+    return result;
+  }
 };
 const getVocabularyById = async (id: string) => {
   const result = await Vocabulary.findById(id);
@@ -52,7 +67,7 @@ const deleteVocabulary = async (id: string) => {
 export const VocabularyServices = {
   createVocabulary,
   updateVocabulary,
-  getVocabularyByLesson,
+  getVocabulary,
   getVocabularyById,
   deleteVocabulary,
 };

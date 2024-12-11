@@ -23,10 +23,10 @@ const updateVocabulary = catchAsync(async (req, res) => {
     data: result,
   });
 });
-const getVocabularyByLesson = catchAsync(async (req, res) => {
-  const lessonNumber = req.body.lessonNumber;
+const getVocabulary = catchAsync(async (req, res) => {
+  const query = req.query;
 
-  const result = await VocabularyServices.getVocabularyByLesson(lessonNumber);
+  const result = await VocabularyServices.getVocabulary(query);
 
   res.status(200).json({
     success: true,
@@ -60,7 +60,7 @@ const deleteVocabulary = catchAsync(async (req, res) => {
 export const VocabularyControllers = {
   createVocabulary,
   updateVocabulary,
-  getVocabularyByLesson,
+  getVocabulary,
   getVocabularyById,
   deleteVocabulary,
 };

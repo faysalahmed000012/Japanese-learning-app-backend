@@ -5,7 +5,7 @@ import { VocabularyControllers } from "./vocabulary.controllers";
 
 const router = Router();
 
-router.get("/", VocabularyControllers.getVocabularyByLesson);
+router.get("/", VocabularyControllers.getVocabulary);
 router.get("/:vocabularyId", VocabularyControllers.getVocabularyById);
 router.post("/", auth(USER_ROLE.admin), VocabularyControllers.createVocabulary);
 router.put(
