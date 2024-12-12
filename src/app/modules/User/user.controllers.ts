@@ -69,10 +69,22 @@ const getAllUsers = catchAsync(async (req, res) => {
   });
 });
 
+const lessonComplete = catchAsync(async (req, res) => {
+  const { lessonNumber, userId } = req.body;
+  const response = await UserServices.lessonComplete(userId, lessonNumber);
+
+  res.status(200).json({
+    success: true,
+    message: "Lesson Completed Successfully",
+    data: response,
+  });
+});
+
 export const UserControllers = {
   createUser,
   login,
   refreshToken,
   manageAdmin,
   getAllUsers,
+  lessonComplete,
 };

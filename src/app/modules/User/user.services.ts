@@ -126,10 +126,20 @@ const getAllUsers = async () => {
   return result;
 };
 
+const lessonComplete = async (userId: string, lessonNumber: number) => {
+  const result = await User.findByIdAndUpdate(
+    userId,
+    { $addToSet: { completedLessons: lessonNumber } },
+    { new: true }
+  );
+  return result;
+};
+
 export const UserServices = {
   login,
   createUser,
   refreshToken,
   manageAdmin,
   getAllUsers,
+  lessonComplete,
 };
