@@ -13,6 +13,11 @@ const createVocabulary = async (payload: IVocabularyPayload) => {
 
   const newPayload = { ...payload, lesson: lesson._id };
   const result = await Vocabulary.create(newPayload);
+  const updateLesson = await Lesson.findByIdAndUpdate(
+    lesson._id,
+    { $inc: { vocabularyCount: 1 } },
+    { new: true }
+  );
   return result;
 };
 const updateVocabulary = async (
