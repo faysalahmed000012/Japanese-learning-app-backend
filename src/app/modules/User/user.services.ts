@@ -13,8 +13,12 @@ const createUser = async (payload: IUser) => {
   } else {
     const user = await User.create(payload);
     const jwtPayload = {
+      _id: user._id,
+      name: user.name,
+      photo: user.photo,
       email: user.email,
       role: user.role,
+      completedLessons: user.completedLessons,
     };
     const accessToken = createToken(
       jwtPayload,
@@ -48,6 +52,9 @@ const login = async (payload: { email: string; password: string }) => {
     //create token and sent to the  client
 
     const jwtPayload = {
+      _id: user._id,
+      name: user.name,
+      photo: user.photo,
       email: user.email,
       role: user.role,
     };
@@ -87,6 +94,9 @@ const refreshToken = async (token: string) => {
   }
 
   const jwtPayload = {
+    _id: user._id,
+    name: user.name,
+    photo: user.photo,
     email: user.email,
     role: user.role,
   };

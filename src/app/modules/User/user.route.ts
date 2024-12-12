@@ -15,10 +15,6 @@ router.post(
 );
 router.post("/login", UserControllers.login);
 router.post("/refresh-token", UserControllers.refreshToken);
-router.post(
-  "/manage-admin",
-  auth(USER_ROLE.admin),
-  UserControllers.manageAdmin
-);
+router.put("/manage-admin", auth(USER_ROLE.admin), UserControllers.manageAdmin);
 
 export const UserRoutes = router;
