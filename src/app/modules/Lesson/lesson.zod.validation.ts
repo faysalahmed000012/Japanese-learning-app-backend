@@ -8,6 +8,6 @@ export const lessonValidationSchema = z.object({
       .int()
       .positive()
       .min(1, "Lesson number must be positive"),
-    vocabularyCount: z.number().min(0, "Vocabulary count cannot be negative"),
+    vocabularyCount: z.number().optional(),
   }),
 });
