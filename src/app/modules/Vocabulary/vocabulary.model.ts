@@ -20,7 +20,7 @@ const VocabularySchema = new Schema<IVocabulary>(
       required: [true, "Description of When to use is Required"],
     },
     lesson: {
-      type: String,
+      type: Schema.Types.ObjectId,
       ref: "Lesson",
       required: [true, "Associated Lesson is Required"],
     },

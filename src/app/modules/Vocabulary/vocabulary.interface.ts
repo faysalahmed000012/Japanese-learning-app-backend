@@ -1,9 +1,11 @@
+import { Types } from "mongoose";
+
 export interface IVocabulary {
   word: string;
   pronunciation: string;
   meaning: string;
   whenToSay: string;
-  lesson: string;
+  lesson: Types.ObjectId;
   adminEmail: string;
   createdAt: Date;
   updatedAt: Date;

@@ -49,14 +49,14 @@ const getVocabulary = async (query: Record<string, unknown>) => {
 
     const newQuery = { lesson: lesson };
     const vocabularyQuery = new QueryBuilder(
-      Vocabulary.find(),
+      Vocabulary.find().populate("lesson"),
       newQuery
     ).filter();
 
     const result = await vocabularyQuery.modelQuery;
     return result;
   } else {
-    const result = await Vocabulary.find().lean();
+    const result = await Vocabulary.find().populate("lesson").lean();
     return result;
   }
 };
