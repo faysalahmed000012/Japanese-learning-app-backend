@@ -1,6 +1,6 @@
 # Easy Japanese Learning App
 
-live link:
+live link: https://japanese-learning-app-self.vercel.app
 
 ## Description
 
